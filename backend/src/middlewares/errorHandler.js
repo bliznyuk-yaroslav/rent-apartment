@@ -5,13 +5,13 @@ const errorHandler = (error, req, res, next) => {
     res.status(status).json({
       status,
       message,
-      data: error,
+      data: { message },
     });
     return;
   }
   res.status(404).json({
     status: 404,
-    message: 'Something went wrong',
+    message: 'Something went11111 wrong',
     data: { message: 'Not found' },
   });
   next();
