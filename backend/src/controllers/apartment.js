@@ -3,7 +3,7 @@ import { getAllApartments, getApartmentById } from '../services/apartment.js';
 import { deleteApartment } from '../services/apartment.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import createApartmentSchema from '../validation/apartment.js';
+import { createApartmentSchema } from '../validation/apartment.js';
 import { env } from '../utils/env.js';
 // GET ALL APART
 export const getApartmentController = async (req, res) => {
