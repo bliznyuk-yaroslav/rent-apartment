@@ -6,8 +6,8 @@ import errorHandler from './middlewares/errorHandler.js';
 import { env } from './utils/env.js';
 import apartmentRouter from './routers/apartment.js';
 import { UPLOAD_DIR } from './constant/index.js';
-const PORT = Number(env('PORT', 3002));
-const allowedOrigins = ['http://localhost:3002'];
+const PORT = Number(env('PORT', 3000));
+const allowedOrigins = ['http://localhost:3000'];
 const corsOptions = { origin: allowedOrigins, credentials: true };
 export const setupServer = () => {
   const app = express();
