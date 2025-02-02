@@ -14,4 +14,16 @@ export const deleteApartment = async (apartmentId) => {
   });
   return apartment;
 };
-export const createApartment = (payload) => ApartmentCollection.create(payload);
+export const createApartment = async (payload) => {
+  return ApartmentCollection.create(payload);
+};
+export const updateApartment = async (apartmentId, payload = {}) => {
+  const updateOptions = { new: true, includeResultMetadata: true };
+  const apartment = await ApartmentCollection.findOneAndUpdate(
+    { _id: apartmentId },
+    payload,
+    updateOptions,
+  );
+  if (!apartment || !apartment.value) return null;
+  return apartment;
+};

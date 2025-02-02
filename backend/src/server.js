@@ -13,16 +13,16 @@ export const setupServer = () => {
   const app = express();
   app.use(
     pino({
-      transpor: {
+      transport: {
         target: 'pino-pretty',
       },
     }),
   );
-  app.use(cors(corsOptions));
-  app.use('/', apartmentRouter);
   app.use(express.json());
-  app.use('*', notFoundHandler);
+  app.use(cors(corsOptions));
   app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/', apartmentRouter);
+  app.use('*', notFoundHandler);
   app.use(errorHandler);
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 };

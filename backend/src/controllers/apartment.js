@@ -1,9 +1,13 @@
 import createHttpError from 'http-errors';
-import { getAllApartments, getApartmentById } from '../services/apartment.js';
+import {
+  getAllApartments,
+  getApartmentById,
+  updateApartment,
+  createApartment,
+} from '../services/apartment.js';
 import { deleteApartment } from '../services/apartment.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { createApartment } from '../services/apartment.js';
 import { env } from '../utils/env.js';
 // GET ALL APART
 export const getApartmentController = async (req, res) => {
@@ -46,24 +50,63 @@ export const deleteApartmentController = async (req, res, next) => {
 
 // ADD APART
 
-export const addApartmentConrtoller = async (req, res) => {
-  const photo = req.file;
-  let photoUrl;
-  if (photo) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
+export const addApartmentController = async (req, res) => {
+  let photoUrl = [];
+
+  if (req.files && req.files.length > 0) {
+    for (const file of req.files) {
+      let uploadedUrl;
+      if (env('ENABLE_CLOUDINARY') === 'true') {
+        uploadedUrl = await saveFileToCloudinary(file);
+      } else {
+        uploadedUrl = await saveFileToUploadDir(file);
+      }
+      photoUrl.push(uploadedUrl);
     }
+  }
+  if (Array.isArray(req.body.photo)) {
+    photoUrl = [...photoUrl, ...req.body.photo];
   }
   const apartmentData = {
     ...req.body,
     photo: photoUrl,
   };
-  const apartment = await createApartment(apartmentData, req);
+  const apartment = await createApartment(apartmentData);
   res.status(201).json({
     status: 201,
     message: 'Succesfully a apartment',
     data: apartment,
+  });
+};
+export const updateApartmentController = async (req, res) => {
+  const { id } = req.params;
+  let photoUrl = [];
+
+  if (req.files && req.files.length > 0) {
+    for (const file of req.files) {
+      let uploadedUrl;
+      if (env('ENABLE_CLOUDINARY') === 'true') {
+        uploadedUrl = await saveFileToCloudinary(file);
+      } else {
+        uploadedUrl = await saveFileToUploadDir(file);
+      }
+      photoUrl.push(uploadedUrl);
+    }
+  }
+  if (Array.isArray(req.body.photo)) {
+    photoUrl = [...photoUrl, ...req.body.photo];
+  }
+  const updateData = { ...req.body };
+  if (photoUrl.length > 0) {
+    updateData.photo = photoUrl;
+  }
+  const data = await updateApartment(id, updateData);
+  if (!data) {
+    throw createHttpError(404, 'There is no such apartment, unfortunately');
+  }
+  res.status(201).json({
+    status: 201,
+    message: 'Succesfully update apartment',
+    data: data.value,
   });
 };

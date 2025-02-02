@@ -6,10 +6,8 @@ const apartmentSchema = new Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     rooms: { type: Number, required: true },
-    photos: {
+    photo: {
       type: [String],
-      default:
-        'https://png.pngtree.com/thumb_back/fw800/background/20230303/pngtree-room-interior-bedroom-cartoon-living-kids-with-furniture-teenage-bed-kid-vector-image_1757093.jpg',
     },
   },
   {
