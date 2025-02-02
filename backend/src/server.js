@@ -5,6 +5,7 @@ import notFoundHandler from './middlewares/notFoundHendler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import { env } from './utils/env.js';
 import apartmentRouter from './routers/apartment.js';
+import { UPLOAD_DIR } from './constant/index.js';
 const PORT = Number(env('PORT', 3002));
 const allowedOrigins = ['http://localhost:3002'];
 const corsOptions = { origin: allowedOrigins, credentials: true };
@@ -21,6 +22,7 @@ export const setupServer = () => {
   app.use('/', apartmentRouter);
   app.use(express.json());
   app.use('*', notFoundHandler);
+  app.use('/uploads', express.static(UPLOAD_DIR));
   app.use(errorHandler);
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 };

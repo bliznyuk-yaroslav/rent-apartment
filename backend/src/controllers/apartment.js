@@ -3,7 +3,7 @@ import { getAllApartments, getApartmentById } from '../services/apartment.js';
 import { deleteApartment } from '../services/apartment.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { createApartmentSchema } from '../validation/apartment.js';
+import { createApartment } from '../services/apartment.js';
 import { env } from '../utils/env.js';
 // GET ALL APART
 export const getApartmentController = async (req, res) => {
@@ -60,7 +60,7 @@ export const addApartmentConrtoller = async (req, res) => {
     ...req.body,
     photo: photoUrl,
   };
-  const apartment = await createApartmentSchema(apartmentData, req);
+  const apartment = await createApartment(apartmentData, req);
   res.status(201).json({
     status: 201,
     message: 'Succesfully a apartment',
