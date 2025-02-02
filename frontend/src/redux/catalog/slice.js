@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAllApartment } from "./operation";
 const initialState = {
-  apartment: [],
+  catalog: [],
   isLoading: false,
   error: null,
 };
@@ -15,7 +15,6 @@ const catalogSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchAllApartment.fulfilled, (state, action) => {
-        console.log("Received data:", action.payload);
         state.isLoading = false;
         state.error = null;
         state.apartment = action.payload.data;

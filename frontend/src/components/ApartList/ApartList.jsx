@@ -18,11 +18,12 @@ export default function ApartList() {
   //     setCount((prevCount) => prevCount + 1);
   //   };
   //   console.log(apartments);
+  console.log(apartments);
   return (
     <div>
       <ul>
         {apartments.map((apartment) => (
-          <li key={apartment._id} className={css.item}>
+          <li key={apartment.id} className={css.item}>
             <ApartCard apartment={apartment} />
           </li>
         ))}
