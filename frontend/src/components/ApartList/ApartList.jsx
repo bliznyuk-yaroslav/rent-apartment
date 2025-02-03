@@ -4,30 +4,27 @@ import { useEffect, useState } from "react";
 import { fetchAllApartment } from "../../redux/catalog/operation";
 import css from "./ApartList.module.css";
 import ApartCard from "../ApartCard/ApartCard";
+import { Link } from "react-router-dom";
 export default function ApartList() {
   const dispatch = useDispatch();
   const apartments = useSelector(selectorAllApartment);
-  //   console.log(apartments);
-  //   const isLoading = useSelector(selectorIsLoading);
-  //   const [count, setCount] = useState(3);
-
   useEffect(() => {
     dispatch(fetchAllApartment());
   }, [dispatch]);
-  //   const handleLoadMore = () => {
-  //     setCount((prevCount) => prevCount + 1);
-  //   };
-  //   console.log(apartments);
-  console.log(apartments);
+
   return (
     <div>
-      <ul>
+      <div className={css.container}>
         {apartments.map((apartment) => (
-          <li key={apartment.id} className={css.item}>
+          <Link
+            key={apartment._id}
+            to={`/${apartment._id}`}
+            className={css.item}
+          >
             <ApartCard apartment={apartment} />
-          </li>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

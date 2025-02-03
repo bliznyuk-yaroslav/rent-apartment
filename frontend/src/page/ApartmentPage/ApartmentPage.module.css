@@ -1,0 +1,56 @@
+.container {
+  width: 280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn {
+  text-decoration: none;
+  display: flex;
+  width: 65px;
+  padding: 5px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  outline: none;
+  border-radius: 200px;
+  background: var(--Button, #e44848);
+  color: var(--White, #fff);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.08px;
+  transition: background 0.3s ease-in-out;
+}
+
+@media screen and (min-width: 320px) and (max-width: 374px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .container {
+    width: 335px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+  .contInfo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 1440px;
+  }
+}

@@ -12,3 +12,14 @@ export const fetchAllApartment = createAsyncThunk(
     }
   }
 );
+export const deleteApartment = createAsyncThunk(
+  "apartment/deleteApartment",
+  async (_id, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/${_id}`);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

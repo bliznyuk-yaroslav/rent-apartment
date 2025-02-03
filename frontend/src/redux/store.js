@@ -1,5 +1,5 @@
 import storage from "redux-persist/lib/storage";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apartmentReducer } from "./catalog/slice";
 
 import {
@@ -12,17 +12,23 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { apartmentIdReducer } from "./item/slice";
 
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["catalog", "catalogId"],
 };
-const persistedReducer = persistReducer(persistConfig, apartmentReducer);
+
+const rootReducer = combineReducers({
+  catalog: apartmentReducer,
+  catalogId: apartmentIdReducer,
+});
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    catalog: persistedReducer,
-  },
+  reducer: persistedReducer,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

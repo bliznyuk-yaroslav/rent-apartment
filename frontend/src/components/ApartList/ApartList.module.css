@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 40px;
+}
+.container a {
+  color: black;
+  text-decoration: none;
+}
