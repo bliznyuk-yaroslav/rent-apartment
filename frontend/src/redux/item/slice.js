@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  fetchApartmentId } from "./operation";
+import { fetchApartmentId } from "./operation";
 const initialState = {
-  
-    apartmentId: {},
-    isLoading: false,
-    error: null,
- 
+  apartmentId: {},
+  isLoading: false,
+  error: null,
 };
 const apartmentIdSlice = createSlice({
   name: "apartmentId",
@@ -25,8 +23,7 @@ const apartmentIdSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         state.apartmentId = {};
-      })
-     
+      });
   },
 });
 export const apartmentIdReducer = apartmentIdSlice.reducer;

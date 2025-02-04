@@ -14,5 +14,14 @@ export const fetchApartmentId = createAsyncThunk(
   }
 );
 
-
-export const updateApartment = createAsyncThunk()
+export const updateApartment = createAsyncThunk(
+  "/apartment/updateApartment",
+  async (_id, formData, thunkAPI) => {
+    try {
+      const response = await axios.patch(`/${_id}`, formData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

@@ -6,6 +6,9 @@ const apartmentSchema = new Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     rooms: { type: Number, required: true },
+    location: { type: String },
+    floor: { type: Number },
+    square: { type: Number },
     photo: {
       type: [String],
     },

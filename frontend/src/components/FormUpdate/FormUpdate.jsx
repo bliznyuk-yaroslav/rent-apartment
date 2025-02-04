@@ -7,8 +7,10 @@ import { selectorApartmentId } from "../../redux/item/selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateApartment } from "../../redux/item/operation";
 import css from "./FormUpdate.module.css";
+import Button from "@mui/material/Button";
+import { CircleX } from "lucide-react";
 
-export default function FormUpdate() {
+export default function FormUpdate({ closeModal }) {
   const dispatch = useDispatch();
   const titleInput = useId();
   const priceInput = useId();
@@ -66,6 +68,9 @@ export default function FormUpdate() {
 
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+      <p onClick={closeModal} className={css.btnCls}>
+        <CircleX style={{ color: "#20B2AA" }} size={30} />
+      </p>
       <h2 className={css.titleForm}>Редагування</h2>
 
       <div className={css.inputGroup}>
@@ -102,7 +107,7 @@ export default function FormUpdate() {
           id={descriptionInput}
           {...register("description")}
           placeholder="Введіть опис"
-          className={errors.description ? css.errorInput : css.input}
+          className={errors.description ? css.errorInput : css.inputDesc}
         />
         {errors.description && (
           <span className={css.errorText}>{errors.description.message}</span>
@@ -165,11 +170,13 @@ export default function FormUpdate() {
         )}
       </div>
 
-      <div className={css.submitButton}>
-        <button type="submit" className={css.button}>
-          Оновити
-        </button>
-      </div>
+      <Button
+        variant="outlined"
+        type="submit"
+        sx={{ color: "#20B2AA", borderColor: "#20B2AA" }}
+      >
+        Редагувати
+      </Button>
     </form>
   );
 }

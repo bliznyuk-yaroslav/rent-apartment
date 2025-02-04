@@ -6,6 +6,9 @@
   margin-top: 8px;
   font-size: 24px;
 }
-.btn{
+.btn {
   margin: 10px;
+}
+.modalContent {
+  position: relative;
 }

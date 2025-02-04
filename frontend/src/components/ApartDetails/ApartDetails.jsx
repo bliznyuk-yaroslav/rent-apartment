@@ -15,21 +15,6 @@ export default function ApartDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    };
-    if (isModalOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      window.removeEventListener("keydown", handleKeyDown);
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen]);
 
   return (
     <div>
@@ -53,12 +38,11 @@ export default function ApartDetails() {
       {isModalOpen && (
         <Modal
           open={isModalOpen}
-          onClose={closeModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <div className={css.modalContent}>
-            <FormUpdate />
+            <FormUpdate closeModal={closeModal} />
           </div>
         </Modal>
       )}
