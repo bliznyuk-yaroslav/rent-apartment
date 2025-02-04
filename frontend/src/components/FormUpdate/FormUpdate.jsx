@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { selectorApartmentId } from "../../redux/item/selector";
+import {
+  selectorApartmentId,
+  selectorIsLoading,
+} from "../../redux/item/selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateApartment } from "../../redux/item/operation";
 import css from "./FormUpdate.module.css";
@@ -20,6 +23,7 @@ export default function FormUpdate({ closeModal }) {
   const floorInput = useId();
   const squareInput = useId();
   const apartment = useSelector(selectorApartmentId);
+  const isLoading = useSelector(selectorIsLoading);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().max(90, "Максимальна кількість 90 символів "),
@@ -62,8 +66,17 @@ export default function FormUpdate({ closeModal }) {
   }, [apartment, setValue]);
 
   const onSubmit = (data) => {
-    dispatch(updateApartment(data));
-    toast.success("Successfully updated!", { duration: 1000 });
+    console.log("Form Data: ", data);
+    const apartmentId = apartment._id;
+    dispatch(updateApartment({ _id: apartmentId, formData: data }))
+      .then(() => {
+        closeModal();
+        window.location.reload();
+      })
+      .catch((error) => {
+        toast.error("Помилка при оновлені квартири.");
+      });
+    toast.success("Квартира Оновилась!", { duration: 1000 });
   };
 
   return (

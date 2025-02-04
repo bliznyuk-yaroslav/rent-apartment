@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchApartmentId } from "./operation";
+import { fetchApartmentId, updateApartment } from "./operation";
 const initialState = {
   apartmentId: {},
   isLoading: false,
@@ -23,6 +23,19 @@ const apartmentIdSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         state.apartmentId = {};
+      })
+      .addCase(updateApartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateApartment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.apartmentId = action.payload;
+        console.log("Update successful: ", action.payload);
+      })
+      .addCase(updateApartment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
