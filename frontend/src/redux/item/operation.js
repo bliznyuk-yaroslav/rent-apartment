@@ -15,3 +15,4 @@ export const fetchApartmentId = createAsyncThunk(
 );
 
 
+export const updateApartment = createAsyncThunk()
