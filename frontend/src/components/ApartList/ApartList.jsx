@@ -13,18 +13,12 @@ export default function ApartList() {
   }, [dispatch]);
 
   return (
-    <div>
-      <div className={css.container}>
-        {apartments.map((apartment) => (
-          <Link
-            key={apartment._id}
-            to={`/${apartment._id}`}
-            className={css.item}
-          >
-            <ApartCard apartment={apartment} />
-          </Link>
-        ))}
-      </div>
-    </div>
+    <ul className={css.container}>
+    {apartments.map((apartment) => (
+      <li key={apartment._id} className={css.item}>
+        <ApartCard apartment={apartment} />
+      </li>
+    ))}
+  </ul>
   );
 }

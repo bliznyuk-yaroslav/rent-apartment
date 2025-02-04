@@ -1,7 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,17 +20,15 @@ export default function ButtonDel({ apartmentId }) {
     }
   };
   return (
-    <Stack direction="row" spacing={2}>
+  
       <Button
         variant="outlined"
         startIcon={<DeleteIcon />}
         onClick={handleDelete}
+        sx={{ color: "#20B2AA", borderColor: "#20B2AA", ml:1}}
       >
-        Видалити
+        Видалити квартиру
       </Button>
-      <Button variant="contained" endIcon={<EditIcon />}>
-        Редагувати
-      </Button>
-    </Stack>
   );
+
 }

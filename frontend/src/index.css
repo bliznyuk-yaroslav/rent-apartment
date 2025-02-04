@@ -26,12 +26,10 @@ img {
 }
 
 body {
-  height: 100vh;
-  background: linear-gradient(
-    180deg,
-    rgba(230, 230, 250, 0.5),
-    rgba(204, 204, 255, 0.4)
-  );
+
+  background: 
+    rgba(230, 230, 250, 0.5);
+
   font-family: Inter;
   font-style: normal;
   font-weight: 400;
