@@ -21,14 +21,14 @@ router.get('/:id', isValid, ctrlWrapper(getApartmentByIdController));
 router.delete('/:id', ctrlWrapper(deleteApartmentController));
 router.post(
   '/',
-  upload.array('photos', 10),
+  upload.array('photo', 10),
   validateBody(createApartmentSchema),
   ctrlWrapper(addApartmentController),
 );
 router.patch(
   '/:id',
   isValid,
-  upload.array('photos', 10),
+  upload.array('photo', 10),
   validateBody(updateApartmentSchema),
   ctrlWrapper(updateApartmentController),
 );

@@ -1,11 +1,10 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import {
   selectorApartmentId,
-  selectorIsLoading,
 } from "../../redux/item/selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateApartment } from "../../redux/item/operation";
@@ -23,7 +22,6 @@ export default function FormUpdate({ closeModal }) {
   const floorInput = useId();
   const squareInput = useId();
   const apartment = useSelector(selectorApartmentId);
-  const isLoading = useSelector(selectorIsLoading);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().max(90, "Максимальна кількість 90 символів "),

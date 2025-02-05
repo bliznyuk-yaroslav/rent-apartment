@@ -36,10 +36,7 @@ export default function ApartDetails() {
         </Button>
       </div>
       {isModalOpen && (
-        <Modal
-          open={isModalOpen}
-          disableScrollLock={true}
-        >
+        <Modal open={isModalOpen} disableScrollLock={true}>
           <div className={css.modalContent}>
             <FormUpdate closeModal={closeModal} />
           </div>

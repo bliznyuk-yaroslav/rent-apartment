@@ -23,3 +23,14 @@ export const deleteApartment = createAsyncThunk(
     }
   }
 );
+export const addApartment = createAsyncThunk(
+  "apartment/addApartment",
+  async (apartmentData, thunkAPI) => {
+    try {
+      const response = await axios.post("/", apartmentData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

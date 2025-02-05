@@ -1,11 +1,5 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { deleteApartment, fetchAllApartment } from "./operation";
-import { selectorAllApartment } from "./selector";
-import {
-  selectLocationFilter,
-  selectPriceFilter,
-  selectRoomFilter,
-} from "../Filter/slice";
+import { createSlice } from "@reduxjs/toolkit";
+import { deleteApartment, fetchAllApartment, addApartment } from "./operation";
 const initialState = {
   apartment: [],
   isLoading: false,
@@ -14,8 +8,7 @@ const initialState = {
 const catalogSlice = createSlice({
   name: "apartment",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllApartment.pending, (state) => {
@@ -45,30 +38,20 @@ const catalogSlice = createSlice({
       .addCase(deleteApartment.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
+      })
+      .addCase(addApartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addApartment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.apartment.push(action.payload.data);
+      })
+      .addCase(addApartment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
-export const { setLocations } = catalogSlice.actions;
-export const selectFilteredApartment = createSelector(
-  [
-    selectorAllApartment,
-    selectPriceFilter,
-    selectRoomFilter,
-    selectLocationFilter,
-  ],
-  (apartment, priceFilter, roomFilter, locationFilter) => {
-    return apartment.filter((apartments) => {
-      const matchPrice = priceFilter ? apartments.price <= priceFilter : true;
-      const matchRooms = roomFilter
-        ? apartments.rooms <= parseInt(roomFilter, 10)
-        : true;
-      const matchLocation = locationFilter
-        ? apartments.location
-            .toLowerCase()
-            .includes(locationFilter.toLowerCase())
-        : true;
-      return matchRooms && matchPrice && matchLocation;
-    });
-  }
-);
+
 export const apartmentReducer = catalogSlice.reducer;

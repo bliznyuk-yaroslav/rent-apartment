@@ -36,7 +36,8 @@ const apartmentIdSlice = createSlice({
       .addCase(updateApartment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      });
+      })
+     
   },
 });
 export const apartmentIdReducer = apartmentIdSlice.reducer;

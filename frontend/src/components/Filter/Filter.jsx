@@ -40,6 +40,7 @@ export default function Filter() {
     dispatch(changeFilter(""));
     dispatch(changeRoomFilter(""));
     dispatch(changeLocationFilter(""));
+    dispatch(fetchAllApartment({}));
   };
   return (
     <div className={css.cont}>

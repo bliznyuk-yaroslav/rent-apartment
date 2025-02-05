@@ -7,7 +7,13 @@ import ApartCard from "../ApartCard/ApartCard";
 import { Link } from "react-router-dom";
 import { selectFilteredApartment } from "../../redux/catalog/slice";
 export default function ApartList() {
-  const apartments = useSelector(selectFilteredApartment);
+  const dispatch = useDispatch();
+  const apartments = useSelector(selectorAllApartment);
+  console.log(apartments);
+  useEffect(() => {
+    dispatch(fetchAllApartment());
+  }, [dispatch]);
+
   return (
     <ul className={css.container}>
       {apartments.map((apartment) => (
