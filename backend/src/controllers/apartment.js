@@ -69,7 +69,7 @@ export const addApartmentController = async (req, res) => {
     for (const file of req.files) {
       let uploadedUrl;
       if (env('ENABLE_CLOUDINARY') === 'true') {
-        uploadedUrl = await saveFileToCloudinary(file);
+        uploadedUrl = await saveFileToCloudinary(file, 'photo');
       } else {
         uploadedUrl = await saveFileToUploadDir(file);
       }

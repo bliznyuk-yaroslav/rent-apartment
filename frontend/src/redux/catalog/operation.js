@@ -27,7 +27,22 @@ export const addApartment = createAsyncThunk(
   "apartment/addApartment",
   async (apartmentData, thunkAPI) => {
     try {
-      const response = await axios.post("/", apartmentData);
+      const formData = new FormData();
+      formData.append("title", apartmentData.title);
+      formData.append("price", apartmentData.price);
+      formData.append("description", apartmentData.description);
+      formData.append("rooms", apartmentData.rooms);
+      formData.append("location", apartmentData.location);
+      formData.append("floor", apartmentData.floor);
+      formData.append("square", apartmentData.square);
+      apartmentData.photo.forEach((file) => {
+        formData.append("photo", file);
+      });
+      const response = await axios.post("/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
