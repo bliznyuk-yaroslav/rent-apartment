@@ -1,7 +1,18 @@
 import { ApartmentCollection } from '../db/models/apartment.js';
 
-export const getAllApartments = async () => {
-  return await ApartmentCollection.find();
+export const getAllApartments = async (queryParams) => {
+  const { price, rooms, location } = queryParams;
+  const filter = {};
+  if (price) {
+    filter.price = { $lte: price };
+  }
+  if (rooms) {
+    filter.rooms = { $lte: rooms };
+  }
+  if (location) {
+    filter.location = { $regex: location, $options: 'i' };
+  }
+  return await ApartmentCollection.find(filter);
 };
 
 export const getApartmentById = async (apartmentId) => {

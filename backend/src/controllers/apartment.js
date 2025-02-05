@@ -11,13 +11,25 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { env } from '../utils/env.js';
 // GET ALL APART
 export const getApartmentController = async (req, res) => {
-  const apartment = await getAllApartments();
-
-  res.json({
-    status: 200,
-    message: 'Successfully found students!',
-    data: apartment,
-  });
+  try {
+    const { price, rooms, location } = req.query;
+    const queryParams = {
+      price: price ? parseInt(price, 10) : undefined,
+      rooms: rooms ? parseInt(rooms, 10) : undefined,
+      location: location || undefined,
+    };
+    const apartment = await getAllApartments(queryParams);
+    res.json({
+      status: 200,
+      message: 'Successfully found apartments!',
+      data: apartment,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
 };
 
 // GET APART ID

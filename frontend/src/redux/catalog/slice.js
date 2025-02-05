@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { deleteApartment, fetchAllApartment } from "./operation";
+import { selectorAllApartment } from "./selector";
+import {
+  selectLocationFilter,
+  selectPriceFilter,
+  selectRoomFilter,
+} from "../Filter/slice";
 const initialState = {
   apartment: [],
   isLoading: false,
@@ -8,7 +14,8 @@ const initialState = {
 const catalogSlice = createSlice({
   name: "apartment",
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllApartment.pending, (state) => {
@@ -41,4 +48,27 @@ const catalogSlice = createSlice({
       });
   },
 });
+export const { setLocations } = catalogSlice.actions;
+export const selectFilteredApartment = createSelector(
+  [
+    selectorAllApartment,
+    selectPriceFilter,
+    selectRoomFilter,
+    selectLocationFilter,
+  ],
+  (apartment, priceFilter, roomFilter, locationFilter) => {
+    return apartment.filter((apartments) => {
+      const matchPrice = priceFilter ? apartments.price <= priceFilter : true;
+      const matchRooms = roomFilter
+        ? apartments.rooms <= parseInt(roomFilter, 10)
+        : true;
+      const matchLocation = locationFilter
+        ? apartments.location
+            .toLowerCase()
+            .includes(locationFilter.toLowerCase())
+        : true;
+      return matchRooms && matchPrice && matchLocation;
+    });
+  }
+);
 export const apartmentReducer = catalogSlice.reducer;

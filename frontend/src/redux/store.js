@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import { apartmentIdReducer } from "./item/slice";
+import { filterReducer } from "./Filter/slice";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   catalog: apartmentReducer,
   catalogId: apartmentIdReducer,
+  filters: filterReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
