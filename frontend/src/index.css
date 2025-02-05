@@ -26,7 +26,7 @@ img {
 }
 
 body {
-
+  overflow: auto;
   background: 
     rgba(230, 230, 250, 0.5);
 

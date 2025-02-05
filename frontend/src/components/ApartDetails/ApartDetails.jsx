@@ -38,8 +38,7 @@ export default function ApartDetails() {
       {isModalOpen && (
         <Modal
           open={isModalOpen}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          disableScrollLock={true}
         >
           <div className={css.modalContent}>
             <FormUpdate closeModal={closeModal} />

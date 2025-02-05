@@ -25,7 +25,7 @@ export default function ButtonDel({ apartmentId }) {
         variant="outlined"
         startIcon={<DeleteIcon />}
         onClick={handleDelete}
-        sx={{ color: "#20B2AA", borderColor: "#20B2AA", ml:1}}
+        sx={{ color: "#20B2AA", borderColor: "#20B2AA"}}
       >
         Видалити квартиру
       </Button>

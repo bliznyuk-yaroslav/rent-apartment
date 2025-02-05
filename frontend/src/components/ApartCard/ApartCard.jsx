@@ -33,7 +33,7 @@ export default function ApartCard({ apartment }) {
         <Button
         variant='outlined'
         startIcon={<EditIcon/>}
-        sx={{ color: "#20B2AA", borderColor: "#20B2AA", ml:1}}
+        sx={{ color: "#20B2AA", borderColor: "#20B2AA", mr:1}}
         onClick={handleDetailsClick}>Детальніше</Button>
         <ButtonDel apartmentId={apartment._id} />
       </div>
