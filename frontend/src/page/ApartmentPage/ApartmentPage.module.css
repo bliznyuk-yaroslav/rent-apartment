@@ -5,27 +5,6 @@
   position: relative;
 }
 
-.btn {
-  text-decoration: none;
-  display: flex;
-  width: 65px;
-  padding: 5px 20px;
-  justify-content: space-between;
-  align-items: center;
-  border: none;
-  outline: none;
-  border-radius: 200px;
-  background: var(--Button, #e44848);
-  color: var(--White, #fff);
-  font-family: Inter;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.08px;
-  transition: background 0.3s ease-in-out;
-}
-
 .loaderContainer {
   position: fixed;
   top: 50%;

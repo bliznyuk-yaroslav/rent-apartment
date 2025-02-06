@@ -98,10 +98,10 @@
 }
 
 .input:focus {
-  border-color: #007bff; /* Колір при фокусі */
+  border-color: #007bff; 
 }
 .texter {
-  height: 100px; /* Мінімальна висота */
+  height: 100px;
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ddd;

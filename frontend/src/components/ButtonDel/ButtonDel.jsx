@@ -14,29 +14,27 @@ export default function ButtonDel({ apartmentId }) {
     if (!apartmentId) return;
     console.log(apartmentId);
     try {
-      await dispatch(deleteApartment(apartmentId)).unwrap()
+      await dispatch(deleteApartment(apartmentId))
+        .unwrap()
         .then(() => {
           toast.success("Квартира успішно видалена!", { duration: 1000 });
-          navigate("/")
+          navigate("/");
           setTimeout(() => {
             window.location.reload();
-          }, 2000); 
-  
+          }, 2000);
         });
     } catch (error) {
       toast.error("Помилка при видаленні квартири.");
     }
   };
   return (
-  
-      <Button
-        variant="outlined"
-        startIcon={<DeleteIcon />}
-        onClick={handleDelete}
-        sx={{ color: "#20B2AA", borderColor: "#20B2AA"}}
-      >
-        Видалити хату
-      </Button>
+    <Button
+      variant="outlined"
+      startIcon={<DeleteIcon />}
+      onClick={handleDelete}
+      sx={{ color: "#20B2AA", borderColor: "#20B2AA" }}
+    >
+      Видалити квартиру
+    </Button>
   );
-
 }
