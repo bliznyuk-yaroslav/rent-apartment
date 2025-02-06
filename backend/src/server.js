@@ -7,7 +7,7 @@ import { env } from './utils/env.js';
 import apartmentRouter from './routers/apartment.js';
 import { UPLOAD_DIR } from './constant/index.js';
 const PORT = Number(env('PORT', 3000));
-const allowedOrigins = ['http://localhost:3000','https://rent-apartment-omega.vercel.app'];
+const allowedOrigins = ['http://localhost:3000','https://rent-apartment-hct52lv9t-yaroslavbliznyuks-projects.vercel.app/'];
 const corsOptions = { origin: allowedOrigins, credentials: true };
 export const setupServer = () => {
   const app = express();
