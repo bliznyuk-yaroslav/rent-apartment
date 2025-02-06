@@ -7,7 +7,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import ModalUpdate from "../ModalUpdate/ModalUpdate";
 import FormUpdate from "../FormUpdate/FormUpdate";
 
 export default function ApartDetails() {

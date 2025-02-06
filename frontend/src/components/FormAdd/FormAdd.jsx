@@ -1,8 +1,6 @@
-import { useId, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+
 import { addApartment } from "../../redux/catalog/operation";
 import css from "./FormAdd.module.css";
 import { CircleX } from "lucide-react";
