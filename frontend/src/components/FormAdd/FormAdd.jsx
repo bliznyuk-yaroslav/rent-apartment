@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { addApartment } from "../../redux/catalog/operation";
 import css from "./FormAdd.module.css";
 import { CircleX } from "lucide-react";
+import { Button } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 export default function FormAdd({ closeModal }) {
   const dispatch = useDispatch();
@@ -19,24 +21,7 @@ export default function FormAdd({ closeModal }) {
   const [square, setSquare] = useState("");
   const [photo, setPhoto] = useState([]);
 
-  //   const validationSchema = Yup.object().shape({
-  //     title: Yup.string()
-  //       .max(90, "Максимальна кількість 90 символів ")
-  //       .required("Поле обов'язкове"),
-  //     price: Yup.number()
-  //       .min(0, "Мінімальна ціна 0$")
-  //       .max(10000, "Максимальна ціна оренди 10000$")
-  //       .required("Поле обов'язкове"),
-  //     description: Yup.string()
-  //       .max(335, "Максимальна кількість до 335 символів ")
-  //       .required("Поле обов'язкове"),
-  //     rooms: Yup.number().max(10, "Максимальна кількість кімнат").nullable(),
-  //     location: Yup.string(),
-  //     floor: Yup.number().max(30, "Максимальна кількість поверхів").nullable(),
-  //     square: Yup.number()
-  //       .max(300, "Максимальна кількість квадратних метрів квартири")
-  //       .nullable(),
-  //   });
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,13 +34,16 @@ export default function FormAdd({ closeModal }) {
       location,
       floor: floor ? Number(floor) : null,
       square: square ? Number(square) : null,
-      photo: photo.length > 0 ? photo : [defaultPhoto],
+      photo: photo.length > 0 ? photo : [],
     };
     try {
-      await dispatch(addApartment(data)).unwrap();
+      await dispatch(addApartment(data)).unwrap()
+      .then(() => {
+        toast.success("Квартира успішно добавлена!", { duration: 1000 }) 
+      });
       closeModal();
     } catch (error) {
-      alert("Не вдалося додати квартиру: " + error.message);
+      toast.error("Помилка при додавані квартири.");
     }
   };
   const handleFileChange = (e) => {
@@ -70,8 +58,9 @@ export default function FormAdd({ closeModal }) {
       </p>
       <h2 className={css.titleForm}>Додавання нової квартири</h2>
 
-      <label>Назва квартири:</label>
+      <label>Короткий опис квартири:</label>
       <input
+      className={css.input}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
@@ -79,14 +68,16 @@ export default function FormAdd({ closeModal }) {
 
       <label>Ціна ($):</label>
       <input
+      className={css.input}
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         required
         type="number"
       />
 
-      <label>Опис:</label>
+      <label>Детальний Опис:</label>
       <textarea
+      className={css.texter}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
@@ -94,16 +85,19 @@ export default function FormAdd({ closeModal }) {
 
       <label>Кількість кімнат:</label>
       <input
+      className={css.input}
         value={rooms}
         onChange={(e) => setRooms(e.target.value)}
         type="number"
       />
 
       <label>Локація:</label>
-      <input value={location} onChange={(e) => setLocation(e.target.value)} />
+      <input  className={css.input}
+      value={location} onChange={(e) => setLocation(e.target.value)} />
 
       <label>Поверх:</label>
       <input
+      className={css.input}
         value={floor}
         onChange={(e) => setFloor(e.target.value)}
         type="number"
@@ -111,6 +105,7 @@ export default function FormAdd({ closeModal }) {
 
       <label>Площа (м²):</label>
       <input
+      className={css.input}
         value={square}
         onChange={(e) => setSquare(e.target.value)}
         type="number"
@@ -118,9 +113,13 @@ export default function FormAdd({ closeModal }) {
       <label>Фото (можна вибрати кілька):</label>
       <input type="file" multiple onChange={handleFileChange} />
 
-      <button type="submit" className={css.submitButton}>
-        Додати квартиру
-      </button>
+      <Button
+  type="submit"
+  variant="outlined"
+  sx={{ color: "#20B2AA", borderColor: "#20B2AA" }}
+>
+  Додати квартиру
+</Button>
     </form>
   );
 }

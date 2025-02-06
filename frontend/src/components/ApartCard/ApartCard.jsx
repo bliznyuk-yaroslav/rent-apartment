@@ -4,6 +4,7 @@ import css from "./ApartCard.module.css";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import def from "../../assets/default.jpg";
 
 export default function ApartCard({ apartment }) {
   const truncatedDescription =
@@ -19,7 +20,7 @@ export default function ApartCard({ apartment }) {
 
   return (
     <div className={css.container}>
-      <img src={apartment.photo[0]} alt="photoapart" className={css.photo} />
+      <img src={apartment.photo && apartment.photo.length > 0 ? apartment.photo[0] : def} alt="photoapart" className={css.photo} />
       <div className={css.data}>
         <div className={css.head}>
           <h2 className={css.name}>{apartment.title}</h2>

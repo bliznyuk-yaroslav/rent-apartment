@@ -11,6 +11,7 @@ const apartmentSchema = new Schema(
     square: { type: Number },
     photo: {
       type: [String],
+      default: ["https://example.com/default-image.jpg"],
     },
   },
   {

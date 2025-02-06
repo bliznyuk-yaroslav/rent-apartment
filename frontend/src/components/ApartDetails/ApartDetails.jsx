@@ -15,6 +15,17 @@ export default function ApartDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+  
+    return () => {
+      document.body.style.overflow = "auto"; 
+    };
+  }, [isModalOpen]);
 
   return (
     <div>
@@ -36,7 +47,10 @@ export default function ApartDetails() {
         </Button>
       </div>
       {isModalOpen && (
-        <Modal open={isModalOpen} disableScrollLock={true}>
+        <Modal   open={isModalOpen}
+        onClose={closeModal}
+        disableScrollLock={true}
+        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div className={css.modalContent}>
             <FormUpdate closeModal={closeModal} />
           </div>

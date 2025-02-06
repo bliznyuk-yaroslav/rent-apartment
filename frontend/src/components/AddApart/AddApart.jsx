@@ -1,11 +1,22 @@
 import { Button, Modal } from "@mui/material";
 import css from "./AddApart.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormAdd from "../FormAdd/FormAdd";
 export default function AddApart() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+  
+    return () => {
+      document.body.style.overflow = "auto"; 
+    };
+  }, [isModalOpen]);
   return (
     <div>
       <div>
@@ -25,11 +36,16 @@ export default function AddApart() {
       </div>
       <div>
         {isModalOpen && (
-          <Modal open={isModalOpen} disableScrollLock={true}>
-            <div className={css.modalContent}>
-              <FormAdd closeModal={closeModal} />
-            </div>
-          </Modal>
+          <Modal
+          open={isModalOpen}
+          onClose={closeModal}
+          disableScrollLock={true}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <div className={css.modalContent}>
+            <FormAdd closeModal={closeModal} />
+          </div>
+        </Modal>
         )}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { selectorApartmentId } from "../../redux/item/selector";
 import React, { useEffect, useState } from "react";
 import css from "./ApartPhoto.module.css";
 import { CircleX } from "lucide-react";
+import def from "../../assets/default.jpg";
 
 export default function ApartPhot() {
   const apartamentId = useSelector(selectorApartmentId);
@@ -41,7 +42,7 @@ export default function ApartPhot() {
       {apartamentId.photo && apartamentId.photo.length > 0 && (
         <>
           <img
-            src={apartamentId.photo[currentIndex]}
+            src={apartamentId.photo && apartamentId.photo.length > 0 ? apartamentId.photo[currentIndex] : def }
             alt="photoApart"
             className={css.photo}
             onClick={openModal}
