@@ -7,10 +7,25 @@ import { env } from './utils/env.js';
 import apartmentRouter from './routers/apartment.js';
 import { UPLOAD_DIR } from './constant/index.js';
 const PORT = Number(env('PORT', 3000));
-const allowedOrigins = ['http://localhost:3000','https://rent-apartment-omega.vercel.app/'];
-const corsOptions = { origin: allowedOrigins, credentials: true };
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://rent-apartment-omega.vercel.app',
+  'https://rent-apartment-git-main-yaroslavbliznyuks-projects.vercel.app',
+  'https://rent-apartment-djtl5inxn-yaroslavbliznyuks-projects.vercel.app'
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
 export const setupServer = () => {
   const app = express();
+  
   app.use(
     pino({
       transport: {
