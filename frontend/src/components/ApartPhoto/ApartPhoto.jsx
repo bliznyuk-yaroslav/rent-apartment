@@ -9,14 +9,20 @@ export default function ApartPhot() {
   const apartamentId = useSelector(selectorApartmentId);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const photos =
+    apartamentId.photo && apartamentId.photo.length > 0
+      ? apartamentId.photo
+      : [def];
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === apartamentId.photo.length - 1 ? 0 : prevIndex + 1
+      prevIndex === photos.length - 1 ? 0 : prevIndex + 1
     );
   };
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? apartamentId.photo.length - 1 : prevIndex - 1
+      prevIndex === 0 ? photos.length - 1 : prevIndex - 1
     );
   };
   const openModal = () => setIsModalOpen(true);
@@ -39,14 +45,14 @@ export default function ApartPhot() {
 
   return (
     <div className={css.container}>
+      <img
+        src={photos[currentIndex]}
+        alt="photoApart"
+        className={css.photo}
+        onClick={openModal}
+      />
       {apartamentId.photo && apartamentId.photo.length > 0 && (
         <>
-          <img
-            src={apartamentId.photo && apartamentId.photo.length > 0 ? apartamentId.photo[currentIndex] : def }
-            alt="photoApart"
-            className={css.photo}
-            onClick={openModal}
-          />
           <button onClick={handlePrev} className={css.button}>
             &lt;
           </button>
@@ -59,7 +65,7 @@ export default function ApartPhot() {
                 <CircleX style={{ color: "white" }} size={40} />
               </p>
               <img
-                src={apartamentId.photo[currentIndex]}
+                src={photos[currentIndex]}
                 alt="photoApart"
                 className={css.modalPhoto}
               />

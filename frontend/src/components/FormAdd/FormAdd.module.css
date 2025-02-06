@@ -100,7 +100,7 @@
 .input:focus {
   border-color: #007bff; /* Колір при фокусі */
 }
-.texter{
+.texter {
   height: 100px; /* Мінімальна висота */
   padding: 10px;
   font-size: 14px;
@@ -109,4 +109,10 @@
   border-radius: 4px;
   resize: none;
   overflow-y: hidden;
+}
+.iconCls {
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+  flex-direction: row;
 }

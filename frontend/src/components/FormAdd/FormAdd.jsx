@@ -8,6 +8,7 @@ import css from "./FormAdd.module.css";
 import { CircleX } from "lucide-react";
 import { Button } from "@mui/material";
 import { toast } from "react-hot-toast";
+import { X } from "lucide-react";
 
 export default function FormAdd({ closeModal }) {
   const dispatch = useDispatch();
@@ -21,11 +22,8 @@ export default function FormAdd({ closeModal }) {
   const [square, setSquare] = useState("");
   const [photo, setPhoto] = useState([]);
 
-
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    const defaultPhoto = "https://example.com/default-image.jpg";
     const data = {
       title,
       price: Number(price),
@@ -37,10 +35,11 @@ export default function FormAdd({ closeModal }) {
       photo: photo.length > 0 ? photo : [],
     };
     try {
-      await dispatch(addApartment(data)).unwrap()
-      .then(() => {
-        toast.success("Квартира успішно добавлена!", { duration: 1000 }) 
-      });
+      await dispatch(addApartment(data))
+        .unwrap()
+        .then(() => {
+          toast.success("Квартира успішно добавлена!", { duration: 1000 });
+        });
       closeModal();
     } catch (error) {
       toast.error("Помилка при додавані квартири.");
@@ -48,7 +47,12 @@ export default function FormAdd({ closeModal }) {
   };
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setPhoto(files);
+    setPhoto((prevPhotos) => [...prevPhotos, ...files]);
+  };
+  const handleRemovePhoto = (indexToRemove) => {
+    setPhoto((prevPhotos) =>
+      prevPhotos.filter((_, index) => index !== indexToRemove)
+    );
   };
 
   return (
@@ -60,7 +64,7 @@ export default function FormAdd({ closeModal }) {
 
       <label>Короткий опис квартири:</label>
       <input
-      className={css.input}
+        className={css.input}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
@@ -68,7 +72,7 @@ export default function FormAdd({ closeModal }) {
 
       <label>Ціна ($):</label>
       <input
-      className={css.input}
+        className={css.input}
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         required
@@ -77,7 +81,7 @@ export default function FormAdd({ closeModal }) {
 
       <label>Детальний Опис:</label>
       <textarea
-      className={css.texter}
+        className={css.texter}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
@@ -85,19 +89,23 @@ export default function FormAdd({ closeModal }) {
 
       <label>Кількість кімнат:</label>
       <input
-      className={css.input}
+        className={css.input}
         value={rooms}
         onChange={(e) => setRooms(e.target.value)}
         type="number"
+        required
       />
 
       <label>Локація:</label>
-      <input  className={css.input}
-      value={location} onChange={(e) => setLocation(e.target.value)} />
+      <input
+        className={css.input}
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+      />
 
       <label>Поверх:</label>
       <input
-      className={css.input}
+        className={css.input}
         value={floor}
         onChange={(e) => setFloor(e.target.value)}
         type="number"
@@ -105,21 +113,43 @@ export default function FormAdd({ closeModal }) {
 
       <label>Площа (м²):</label>
       <input
-      className={css.input}
+        className={css.input}
         value={square}
         onChange={(e) => setSquare(e.target.value)}
         type="number"
       />
       <label>Фото (можна вибрати кілька):</label>
       <input type="file" multiple onChange={handleFileChange} />
+      <div>
+        {photo.length > 0 && <p>Обрані фото:</p>}
+        <ul>
+          {photo.map((file, index) => (
+            <li key={index} className={css.iconCls}>
+              {file.name}
+              <button
+                onClick={() => handleRemovePhoto(index)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "grey",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                <X />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <Button
-  type="submit"
-  variant="outlined"
-  sx={{ color: "#20B2AA", borderColor: "#20B2AA" }}
->
-  Додати квартиру
-</Button>
+        type="submit"
+        variant="outlined"
+        sx={{ color: "#20B2AA", borderColor: "#20B2AA" }}
+      >
+        Додати квартиру
+      </Button>
     </form>
   );
 }

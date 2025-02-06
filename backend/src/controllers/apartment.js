@@ -92,26 +92,28 @@ export const addApartmentController = async (req, res) => {
 };
 export const updateApartmentController = async (req, res) => {
   const { id } = req.params;
-  let photoUrl = [];
+  const existingApartment = await getApartmentById(id);
+  if (!existingApartment) {
+    throw createHttpError(404, 'There is no such apartment, unfortunately');
+  }
+  let photoUrl = existingApartment.photo || [];
 
   if (req.files && req.files.length > 0) {
     for (const file of req.files) {
       let uploadedUrl;
       if (env('ENABLE_CLOUDINARY') === 'true') {
-        uploadedUrl = await saveFileToCloudinary(file);
+        uploadedUrl = await saveFileToCloudinary(file, 'photo');
       } else {
         uploadedUrl = await saveFileToUploadDir(file);
       }
       photoUrl.push(uploadedUrl);
     }
   }
-  if (Array.isArray(req.body.photo)) {
+  if (Array.isArray(req.body.photo) && req.body.photo.length > 0) {
     photoUrl = [...photoUrl, ...req.body.photo];
   }
-  const updateData = { ...req.body };
-  if (photoUrl.length > 0) {
-    updateData.photo = photoUrl;
-  }
+  const updateData = { ...req.body, photo: photoUrl };
+
   const data = await updateApartment(id, updateData);
   if (!data) {
     throw createHttpError(404, 'There is no such apartment, unfortunately');

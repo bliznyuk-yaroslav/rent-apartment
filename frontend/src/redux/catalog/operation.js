@@ -32,9 +32,16 @@ export const addApartment = createAsyncThunk(
       formData.append("price", apartmentData.price);
       formData.append("description", apartmentData.description);
       formData.append("rooms", apartmentData.rooms);
-      formData.append("location", apartmentData.location);
-      formData.append("floor", apartmentData.floor);
-      formData.append("square", apartmentData.square);
+
+      if (apartmentData.location) {
+        formData.append("location", apartmentData.location);
+      }
+      if (apartmentData.floor) {
+        formData.append("floor", apartmentData.floor);
+      }
+      if (apartmentData.square) {
+        formData.append("square", apartmentData.square);
+      }
       apartmentData.photo.forEach((file) => {
         formData.append("photo", file);
       });
