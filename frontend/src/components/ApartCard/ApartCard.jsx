@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function ApartCard({ apartment }) {
   const truncatedDescription =
-    apartment.description.length > 335
-      ? apartment.description.slice(0, 335) + "..."
+    apartment.description.length > 100
+      ? apartment.description.slice(0, 100) + "..."
       : apartment.description;
 
   const navigate = useNavigate();
